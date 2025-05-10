@@ -4,11 +4,10 @@
 #include <locale.h>
 #include <time.h>
 
-typedef struct {
+struct matrix {
 	int y;
-	char *chars;
-} matrix;
-
+	char *chars[6];
+};
 
 int main(){
 	
@@ -48,17 +47,46 @@ int main(){
 	setlocale(LC_ALL, "en_US.UTF-8");
 	srand(time(NULL)); // time(storeVar), null means "not store"
 
+	struct matrix teste;
+	teste.y = -5;
+
 	initscr();
 	noecho();
 
-	while(1){
+
+	getmaxyx(stdscr, linha, coluna);
 		
-		getmaxyx(stdscr, linha, coluna);
+
+	// cria o array yupiii
+	for(int i = 0; i < 5; i++){
 		
-		for(int i = 0; i < coluna; i++){
-			matrix **cmatrix.chars = rand() % (46)
+		teste.chars[i] = hiragana[rand() % (46)];	
+	}	
+
+
+	/*while(1){
+		int next = 1;
+		if(teste.y > 0){ teste.y-=5; }
+
+		for(int i = 0; i < sizeof(teste.chars)/sizeof(teste.chars[0]); i++){
+			
+			if(next != 5){
+				teste.chars[i] = teste.chars[next];
+				next++;
+			} else {
+				teste.chars[i] = hiragana[rand() % (46)];
+			}
+
+			mvprintw(teste.y, 0, teste.chars[i]);
+			teste.y++;
 		}
-	}
+
+		refresh();
+		clear();
+		usleep(90000);
+		if(teste.y > linha+5){ teste.y = -5; }
+	}*/
+	
 
 	endwin();
 
