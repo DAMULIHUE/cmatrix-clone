@@ -4,9 +4,9 @@
 #include <locale.h>
 #include <time.h>
 
-struct matrix {
-	int y;
-	char *chars[6];
+struct cmatrix {
+	char ***chars;
+	int **y;
 };
 
 int main(){
@@ -47,48 +47,53 @@ int main(){
 	setlocale(LC_ALL, "en_US.UTF-8");
 	srand(time(NULL)); // time(storeVar), null means "not store"
 
-	struct matrix teste;
-	teste.y = -5;
+	struct cmatrix matrix;
+	int lenght = 5;
 
 	initscr();
 	noecho();
-
-
-	getmaxyx(stdscr, linha, coluna);
-		
-
-	// cria o array yupiii
-	for(int i = 0; i < 5; i++){
-		
-		teste.chars[i] = hiragana[rand() % (46)];	
-	}	
-
-
-	/*while(1){
-		int next = 1;
-		if(teste.y > 0){ teste.y-=5; }
-
-		for(int i = 0; i < sizeof(teste.chars)/sizeof(teste.chars[0]); i++){
-			
-			if(next != 5){
-				teste.chars[i] = teste.chars[next];
-				next++;
-			} else {
-				teste.chars[i] = hiragana[rand() % (46)];
-			}
-
-			mvprintw(teste.y, 0, teste.chars[i]);
-			teste.y++;
-		}
-
-		refresh();
-		clear();
-		usleep(90000);
-		if(teste.y > linha+5){ teste.y = -5; }
-	}*/
 	
+	getmaxyx(stdscr, linha, coluna);
+
+	// aloca memoria igual ao numero de colunas
+
+	matrix.chars = (char***)malloc(coluna*sizeof(char*));
+	matrix.y = (int**)malloc(coluna*sizeof(int*));
+
+
+	// cria a estrutura completa
+	for(int i = 0; i < coluna; i++){
+	
+		matrix.chars[i] = (char**)malloc(lenght*sizeof(char*));
+		matrix.y[i] = (int*)malloc(coluna*sizeof(int*));
+
+		for(int j = 0; j < lenght; j++){
+
+			matrix.chars[i][j] = hiragana[rand() % (sizeof(hiragana)/sizeof(hiragana[0]))];
+			if(j == 0){
+				matrix.y[i][j] = -(rand() % 5);
+			} else {
+				matrix.y[i][j] = matrix.y[i][0]++;
+			}
+		}	
+	}
+
+	while(1){
+		// imprime os chars
+		clear();
+		for(int i = 0; i < coluna; i+=2){
+			for(int j = 0; j < 5; j++){
+
+				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
+				matrix.y[i][j]++;
+			}
+		}
+		usleep(100000);
+		refresh();
+	}
 
 	endwin();
 
 	return 0;
 }
+
