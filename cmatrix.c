@@ -83,9 +83,12 @@ int main(){
 		clear();
 		for(int i = 0; i < coluna; i+=2){
 			for(int j = 0; j < 5; j++){
-
+				
 				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
-				matrix.y[i][j]++;
+
+				if(matrix.y[i][0] > linha){ matrix.y[i][0] =  -(rand() % 5); }
+				else if(j == 0){ matrix.y[i][0]++; } 
+				else { matrix.y[i][j] = matrix.y[i][0]+j; }
 			}
 		}
 		usleep(100000);
