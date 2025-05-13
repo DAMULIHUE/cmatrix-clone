@@ -48,7 +48,7 @@ int main(){
 	srand(time(NULL)); // time(storeVar), null means "not store"
 
 	struct cmatrix matrix;
-	int lenght = 5;
+	int lenght = 15;
 
 	initscr();
 	noecho();
@@ -72,6 +72,8 @@ int main(){
 			matrix.chars[i][j] = hiragana[rand() % (sizeof(hiragana)/sizeof(hiragana[0]))];
 			if(j == 0){
 				matrix.y[i][j] = -(rand() % 5);
+			} else if(j % 5 == 0){
+			        matrix.y[i][j] = matrix.y[i][0]+=2;
 			} else {
 				matrix.y[i][j] = matrix.y[i][0]++;
 			}
@@ -82,16 +84,25 @@ int main(){
 		// imprime os chars
 		clear();
 		for(int i = 0; i < coluna; i+=2){
-			for(int j = 0; j < 5; j++){
+			int next = 1;
+			for(int j = 0; j < lenght; j++){
 				
-				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
+				matrix.y[i][j]++;
+				if(matrix.y[i][j] > linha){ matrix.y[i][j] = 0; }
 
-				if(matrix.y[i][0] > linha){ matrix.y[i][0] =  -(rand() % 5); }
-				else if(j == 0){ matrix.y[i][0]++; } 
-				else { matrix.y[i][j] = matrix.y[i][0]+j; }
+				if(j != lenght-1){
+				
+					matrix.chars[i][j] = matrix.chars[i][next];
+					next++;	
+				} else {
+					matrix.chars[i][j] = hiragana[(rand() % (sizeof(hiragana)/sizeof(hiragana[0])))];
+				}
+				
+
+				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
 			}
 		}
-		usleep(100000);
+		usleep(55000);
 		refresh();
 	}
 
