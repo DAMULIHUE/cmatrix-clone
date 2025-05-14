@@ -48,7 +48,7 @@ int main(){
 	srand(time(NULL)); // time(storeVar), null means "not store"
 
 	struct cmatrix matrix;
-	int lenght = 15;
+	int lenght = 35;
 
 	initscr();
 	noecho();
@@ -71,13 +71,14 @@ int main(){
 
 			matrix.chars[i][j] = hiragana[rand() % (sizeof(hiragana)/sizeof(hiragana[0]))];
 			if(j == 0){
-				matrix.y[i][j] = -(rand() % 5);
-			} else if(j % 5 == 0){
+				matrix.y[i][j] = -lenght; //-(rand() % 5);
+			} else if(j % 5 == 0){ 
 			        matrix.y[i][j] = matrix.y[i][0]+=2;
 			} else {
 				matrix.y[i][j] = matrix.y[i][0]++;
 			}
 		}	
+	
 	}
 
 	while(1){
@@ -88,7 +89,7 @@ int main(){
 			for(int j = 0; j < lenght; j++){
 				
 				matrix.y[i][j]++;
-				if(matrix.y[i][j] > linha){ matrix.y[i][j] = 0; }
+				if(matrix.y[i][j] > linha && matrix.y[i][0] > 0){ matrix.y[i][j] = 0; } 
 
 				if(j != lenght-1){
 				
@@ -102,7 +103,8 @@ int main(){
 				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
 			}
 		}
-		usleep(55000);
+		getch();
+		//usleep(55000);
 		refresh();
 	}
 
