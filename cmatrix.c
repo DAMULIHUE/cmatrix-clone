@@ -56,7 +56,7 @@ int main(){
 
 	struct cmatrix matrix;
 	// lenght 15 estava adcionando um a mais ao final, n sei por que
-	int lenght = 14;
+	int lenght = 35;
 
 	initscr();
 	noecho();
@@ -79,8 +79,8 @@ int main(){
 
 			matrix.chars[i][j] = charac[rand() % (sizeof(charac)/sizeof(charac[0]))];
 			if(j == 0){
-				matrix.y[i][j] = -lenght; //-(rand() % 5);
-			} else if(j % 5 == 0){ 
+				matrix.y[i][j] = -(rand() % lenght);
+			} else if(j % 4 == 0){ 
 			        matrix.y[i][j] = matrix.y[i][0]+=2;
 			} else {
 				matrix.y[i][j] = matrix.y[i][0]++;
@@ -111,12 +111,7 @@ int main(){
 				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
 			}
 		}
-
-		//problema: a primeira fileira tem 5 chars e o resto 4 n sei por que
-		//// acho melhor reescrever logo tudo
-		///
-		getch();
-		//usleep(55000);
+		usleep(55000);
 		refresh();
 	}
 
