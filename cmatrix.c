@@ -103,6 +103,10 @@ int main(){
 				mvprintw(matrix.y[i][j], i, matrix.chars[i][j]);
 			}
 		}
+
+		//problema: a primeira fileira tem 5 chars e o resto 4 n sei por que
+		//// acho melhor reescrever logo tudo
+		///
 		getch();
 		//usleep(55000);
 		refresh();
