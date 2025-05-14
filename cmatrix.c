@@ -44,11 +44,19 @@ int main(){
 	    "ワ",             "ヲ",
 	    "ン"
 	};
+
+
+
+	char *charac[] = {
+		"A", "B", "C", "D", "E", "F", "G", "H"
+	};
+
 	setlocale(LC_ALL, "en_US.UTF-8");
 	srand(time(NULL)); // time(storeVar), null means "not store"
 
 	struct cmatrix matrix;
-	int lenght = 35;
+	// lenght 15 estava adcionando um a mais ao final, n sei por que
+	int lenght = 14;
 
 	initscr();
 	noecho();
@@ -69,7 +77,7 @@ int main(){
 
 		for(int j = 0; j < lenght; j++){
 
-			matrix.chars[i][j] = hiragana[rand() % (sizeof(hiragana)/sizeof(hiragana[0]))];
+			matrix.chars[i][j] = charac[rand() % (sizeof(charac)/sizeof(charac[0]))];
 			if(j == 0){
 				matrix.y[i][j] = -lenght; //-(rand() % 5);
 			} else if(j % 5 == 0){ 
@@ -89,14 +97,14 @@ int main(){
 			for(int j = 0; j < lenght; j++){
 				
 				matrix.y[i][j]++;
-				if(matrix.y[i][j] > linha && matrix.y[i][0] > 0){ matrix.y[i][j] = 0; } 
+				if(matrix.y[i][j] > linha){ matrix.y[i][j] = 0; } 
 
 				if(j != lenght-1){
 				
 					matrix.chars[i][j] = matrix.chars[i][next];
 					next++;	
 				} else {
-					matrix.chars[i][j] = hiragana[(rand() % (sizeof(hiragana)/sizeof(hiragana[0])))];
+					matrix.chars[i][j] = charac[(rand() % (sizeof(charac)/sizeof(charac[0])))];
 				}
 				
 
