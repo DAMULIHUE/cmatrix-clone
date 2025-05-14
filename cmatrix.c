@@ -117,6 +117,16 @@ int main(){
 
 	endwin();
 
+	/*
+	 * função que retorna um char aleatorio de um array x
+	 * garantir que a memoria esteja sendo usada (sem espaços vazios ou desperdícios)
+	 * desbagunçar o código, fazendo um programa mais fácil de ler
+	 * fazer um cmatrix mais responsivo, com possibilidade de alterar
+	 * 	- número de chars na coluna
+	 * 	- cor
+	 * 	- resize (de forma que uma janela menor ao virar maior aceite mais colunas);
+	 */
+
 	return 0;
 }
 
